@@ -38,6 +38,7 @@ BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(mtdev)
+BuildRequires:  pkgconfig(tslib)
 BuildRequires:  pkgconfig(libsystemd-journal)
 BuildRequires:  cups-devel
 BuildRequires:  fdupes
@@ -599,8 +600,11 @@ MAKEFLAGS=%{?_smp_mflags} \
     -nomake tests \
     -nomake examples \
     -nomake demos \
+    -tslib \
 %if %{with X11}
     -xcb \
+%else
+    -no-xcb \
 %endif
     -no-xinput2
 #
@@ -996,6 +1000,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %files plugin-generic-evdev
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/generic/libqevdev*plugin.so
+%{_libdir}/qt5/plugins/generic/libqtslibplugin.so
 
 %files -n qt5-default
 %defattr(-,root,root,-)
